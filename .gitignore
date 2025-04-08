@@ -1,0 +1,62 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+
+# Django
+*.log
+*.pot
+*.pyc
+*.db
+*.sqlite3
+*.log
+
+# Environment variables
+.env
+.venv
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# mypy
+.mypy_cache/
+
+# pytest
+.cache/
+
+# Coverage reports
+*.cover
+*.coverage
+*.hypothesis/
+
+# virtual environment
+venv/
+env/
+.venv/
+.ENV/
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
+
+# SASS
+.sass-cache/
+
+# JetBrains IDEs (IntelliJ, PyCharm, etc.)
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
