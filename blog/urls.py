@@ -10,4 +10,5 @@ urlpatterns = [
     path('', views.index, name='index'),  # Главная страница
     path('api/', include(router.urls)),   # API пути
     path('add/', views.add_post, name='add_post'),  # Страница добавления поста
+    path('post/<int:post_id>/', views.view_post, name='view_post'),  # Новый маршрут для страницы поста
 ]

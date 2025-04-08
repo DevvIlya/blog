@@ -27,3 +27,10 @@ def add_post(request):
         form = PostForm()
     return render(request, 'blog/add_post.html', {'form': form})
 
+from django.shortcuts import render, get_object_or_404
+from .models import Post
+
+# Функция для отображения страницы конкретного поста
+def view_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    return render(request, 'blog/view_post.html', {'post': post})
