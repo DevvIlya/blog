@@ -1,5 +1,5 @@
 from pathlib import Path
-from ..secrets import SECRET_KEY, DATABASES
+from config import SECRET_KEY, DATABASES
 from dotenv import load_dotenv
 import os
 
@@ -116,7 +116,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'blog' / 'static',
+]
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,  # Количество объектов на странице
+}
