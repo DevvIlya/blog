@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 from django.shortcuts import render, redirect, get_object_or_404
@@ -6,6 +6,7 @@ from .forms import PostForm, CommentForm
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.core.paginator import Paginator
+from django_filters.rest_framework import DjangoFilterBackend
 
 @api_view(['GET'])
 def post_list(request):
@@ -29,13 +30,21 @@ def post_list(request):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ['title']
+    search_fields = ['title']  # Поиск по части строки
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all().order_by('-created_at')
     serializer_class = CommentSerializer
 
 def index(request):
-    posts = Post.objects.all().order_by('-created_at')  # Получаем все посты, отсортированные по дате
+    query = request.GET.get('search', '')
+    if query:
+        posts = Post.objects.filter(title__icontains=query).order_by('-created_at')
+    else:
+        posts = Post.objects.all().order_by('-created_at')
+    
     return render(request, 'blog/index.html', {'posts': posts})
 
 def add_post(request):

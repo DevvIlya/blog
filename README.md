@@ -8,11 +8,13 @@
 
    ```bash
    git clone https://github.com/DevvIlya/blog.git
+   git clone https://github.com/DevvIlya/blog.git
    cd blog
    ```
 
 2. **Создайте файл `.env`:**
 
+   Создайте файл `.env` в корне проекта на основе шаблона `.env.template`, который прилагается:
    Создайте файл `.env` в корне проекта на основе шаблона `.env.template`, который прилагается:
 
    ```bash
@@ -26,8 +28,8 @@
    ```bash
    python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
    ```
-   
-4. **Создайте файл `.config.py`:**
+
+3. **Создайте файл `.config.py`:**
     Создайте файл `.config.py` в корне проекта на основе шаблона `.config.py.template`, который прилагается:
 
     ```bash
@@ -36,7 +38,7 @@
 
     Откройте `.config.py` и замените значения по умолчанию на свои настоящие данные.
 
-5. **Соберите и запустите проект:**
+4. **Соберите и запустите проект:**
 
    Построите и запустите контейнеры Docker с помощью команды:
 
@@ -50,6 +52,7 @@
 
 - Веб-приложение: `http://localhost:8000`
 - Админка Django: `http://localhost:8000/admin`
+- API: `http://localhost:8000/api/`
 - API: `http://localhost:8000/api/`
 
 ### Docker команды
@@ -67,9 +70,6 @@
    ```
 
 ---
-Вот дополнение к вашему `README.md`, которое описывает доступ к REST API:
-
----
 
 ## API
 
@@ -77,11 +77,9 @@
 
 ### Базовый адрес API
 
-```
-http://localhost:8000/api/
-```
+`http://localhost:8000/api/`
 
-### Доступные эндпоинты:
+### Доступные эндпоинты
 
 | Метод | Адрес                        | Описание                                 |
 |-------|------------------------------|------------------------------------------|

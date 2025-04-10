@@ -10,6 +10,12 @@
       Add Post
     </a>
 
+    <form method="get" action="{% url 'index' %}">
+      <input type="text" name="search" placeholder="Поиск по заголовку" value="{{ request.GET.search }}">
+      <button type="submit">Поиск</button>
+    </form>
+  
+
     <!-- Заголовок раздела "Latest Posts" -->
     <h1 class="text-4xl font-bold text-center mb-8 text-gray-900 dark:text-white">Latest Posts</h1>
 
