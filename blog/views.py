@@ -3,6 +3,28 @@ from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PostForm, CommentForm
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.core.paginator import Paginator
+
+@api_view(['GET'])
+def post_list(request):
+    posts = Post.objects.all().order_by('-created_at')
+    
+    # Пагинация
+    page_size = int(request.GET.get('page_size', 10))
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(posts, page_size)
+    page_obj = paginator.get_page(page_number)
+
+    # Сериализация данных
+    serializer = PostSerializer(page_obj, many=True)
+
+    return Response({
+        'results': serializer.data,
+        'count': paginator.count
+    })
+
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')

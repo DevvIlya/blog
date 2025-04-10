@@ -1,64 +1,40 @@
 # Python
 *.pyc
 *.pyo
-*.pyd
 __pycache__/
-*.so
 
 # Django
 *.log
 *.pot
 *.pyc
-*.db
-*.sqlite3
-*.log
+*.pyo
+__pycache__
+db.sqlite3
+db.sqlite3-journal
 
-# Environment variables
-.env
-.venv
-
-# VS Code
-.vscode/
-
-# PyCharm
-.idea/
-
-# mypy
-.mypy_cache/
-
-# pytest
-.cache/
-
-# Coverage reports
-*.cover
-*.coverage
-*.hypothesis/
-
-# virtual environment
+# Python virtual environments
 venv/
 env/
 .venv/
-.ENV/
+.env/
 
-# Docker
-.docker/
-docker-compose.override.yml
+# .env file
+.env
 
-# Distribution / Packaging
-build/
-dist/
-*.egg-info/
+# Static files (compiled CSS/JS)
+/static/
+/staticfiles/
 
-# SASS
-.sass-cache/
+# Node.js dependencies
+node_modules/
 
-# JetBrains IDEs (IntelliJ, PyCharm, etc.)
+# Tailwind CSS (compiled files)
+/static/css/styles.css
+
+# VSCode settings
+.vscode/
+
+# PyCharm settings
 .idea/
-
-# macOS
-.DS_Store
-
-# Windows
-Thumbs.db
 
 config.py
