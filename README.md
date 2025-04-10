@@ -8,13 +8,11 @@
 
    ```bash
    git clone https://github.com/DevvIlya/blog.git
-   git clone https://github.com/DevvIlya/blog.git
    cd blog
    ```
 
 2. **Создайте файл `.env`:**
 
-   Создайте файл `.env` в корне проекта на основе шаблона `.env.template`, который прилагается:
    Создайте файл `.env` в корне проекта на основе шаблона `.env.template`, который прилагается:
 
    ```bash
@@ -52,7 +50,6 @@
 
 - Веб-приложение: `http://localhost:8000`
 - Админка Django: `http://localhost:8000/admin`
-- API: `http://localhost:8000/api/`
 - API: `http://localhost:8000/api/`
 
 ### Docker команды
