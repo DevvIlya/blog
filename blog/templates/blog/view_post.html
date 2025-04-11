@@ -1,36 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ post.title }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container mt-5">
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
-    <p><strong>Author:</strong> {{ post.author }} | <strong>Created at:</strong> {{ post.created_at }}</p>
+{% extends "blog/base.html" %}
 
-    <hr>
-    <h4>Comments:</h4>
-    {% for comment in comments %}
-        <div class="mb-3">
-            <p>{{ comment.text }}</p>
-            <small><strong>{{ comment.author }}</strong> | {{ comment.created_at }}</small>
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <article class="space-y-4">
+    <h2 class="text-4xl font-bold">{{ post.title }}</h2>
+    <p class="text-gray-600 dark:text-gray-400">{{ post.created_at }} | <strong>{{ post.author }}</strong></p>
+    <div class="prose dark:prose-invert">
+      {{ post.content }}
+    </div>
+  </article>
+
+  <section class="mt-12">
+    <h3 class="text-2xl font-semibold mb-4">Comments</h3>
+    <div class="space-y-4">
+      {% for comment in comments %}
+        <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+          <p>{{ comment.text }}</p>
+          <small class="text-gray-500">— {{ comment.author }}, {{ comment.created_at }}</small>
         </div>
-    {% empty %}
-        <p>No comments yet.</p>
-    {% endfor %}
+      {% empty %}
+        <p class="text-gray-400 italic">No comments yet.</p>
+      {% endfor %}
+    </div>
 
-    <hr>
-    <h4>Leave a Comment:</h4>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Post Comment</button>
+    <form method="POST" class="mt-6 space-y-4">
+      {% csrf_token %}
+      {% for field in form %}
+        <div>
+          <label class="block text-sm font-medium mb-1">{{ field.label }}</label>
+          {{ field }}
+        </div>
+      {% endfor %}
+      <button type="submit"
+              class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition">
+        Post Comment
+      </button>
     </form>
 
-    <a href="/" class="btn btn-secondary mt-3">Back to posts</a>
-</div>
-</body>
-</html>
+    <a href="/" class="inline-block mt-6 text-blue-500 hover:underline">← Back to posts</a>
+  </section>
+{% endblock %}
