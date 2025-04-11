@@ -14,9 +14,11 @@ python manage.py collectstatic --noinput
 
 set -e
 
+echo "Running migrations..."
 python manage.py migrate
 
-echo "
+echo "Creating superuser if necessary..."
+python manage.py shell <<EOF
 from django.contrib.auth import get_user_model
 import os
 
@@ -30,6 +32,6 @@ if not User.objects.filter(username=username).exists():
     print(f'Created superuser {username}')
 else:
     print(f'Superuser {username} already exists')
-" | python manage.py shell
+EOF
 
 exec "$@"

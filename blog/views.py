@@ -7,11 +7,18 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.core.paginator import Paginator
 from django_filters.rest_framework import DjangoFilterBackend
+from .filters import PostFilter
 
 @api_view(['GET'])
 def post_list(request):
-    posts = Post.objects.all().order_by('-created_at')
+    # Получаем поисковый запрос из параметров запроса
+    query = request.GET.get('search', '')
     
+    # Фильтрация по поисковому запросу
+    posts = Post.objects.all().order_by('-created_at')
+    if query:
+        posts = posts.filter(title__icontains=query)
+
     # Пагинация
     page_size = int(request.GET.get('page_size', 10))
     page_number = request.GET.get('page', 1)
@@ -26,7 +33,6 @@ def post_list(request):
         'count': paginator.count
     })
 
-
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
@@ -40,12 +46,22 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 def index(request):
     query = request.GET.get('search', '')
-    if query:
-        posts = Post.objects.filter(title__icontains=query).order_by('-created_at')
-    else:
-        posts = Post.objects.all().order_by('-created_at')
     
-    return render(request, 'blog/index.html', {'posts': posts})
+    # Фильтрация и пагинация
+    posts = Post.objects.all().order_by('-created_at')
+    if query:
+        posts = posts.filter(title__icontains=query)
+    
+    page_size = int(request.GET.get('page_size', 10))
+    paginator = Paginator(posts, page_size)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'blog/index.html', {
+        'posts': page_obj,
+        'search': query,
+        'page_obj': page_obj
+    })
 
 def add_post(request):
     if request.method == 'POST':

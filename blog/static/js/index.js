@@ -1,6 +1,7 @@
 let currentPage = 1;
 let pageSize = 10;
 let totalPages = 1;
+let searchQuery = '';
 
 document.addEventListener('DOMContentLoaded', () => {
     const pageSizeSelect = document.getElementById('page-size');
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pageSize = parseInt(pageSizeSelect.value);
     }
 
+    // Theme toggle functionality
     const themeToggle = document.getElementById("themeToggle");
     const root = document.documentElement;
 
@@ -32,11 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("theme", theme);
     });
 
-    loadPosts(); // <--- эта строчка была вне тела функции из-за отсутствия закрывающей скобки
-}); // ← Вот эту скобку ты забыл
+    loadPosts();
+});
 
 function loadPosts() {
-    fetch(`/api/posts/?page=${currentPage}&page_size=${pageSize}`)
+    // Получаем текущее значение pageSize
+    pageSize = parseInt(document.getElementById('page-size').value);
+
+    fetch(`/api/posts/?page=${currentPage}&page_size=${pageSize}&search=${searchQuery}`)
         .then(response => response.json())
         .then(data => {
             renderPosts(data.results);
@@ -110,4 +115,18 @@ function createPageButton(text, page) {
         loadPosts();
     };
     return btn;
+}
+
+function handleSearch(query) {
+    searchQuery = query;
+    currentPage = 1;
+    loadPosts();
+}
+
+// Assuming there is a search form or input field that triggers this function
+const searchInput = document.getElementById('search-input');
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        handleSearch(e.target.value);
+    });
 }
