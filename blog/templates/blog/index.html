@@ -3,17 +3,26 @@
 {% block title %}Blog Posts{% endblock %}
 
 {% block content %}
-  <div class="container mx-auto px-6 py-8">
-    <!-- Кнопка добавления поста -->
-    <a href="/add/"
-       class="mb-6 inline-block px-6 py-3 rounded-xl text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
-      Add Post
-    </a>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <!-- Кнопка добавления поста -->
+      <a href="/add/"
+        class="inline-block px-6 py-3 rounded-xl text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+        Add Post
+      </a>
 
-    <form method="get" action="{% url 'index' %}">
-      <input type="text" name="search" placeholder="Поиск по заголовку" value="{{ request.GET.search }}">
-      <button type="submit">Поиск</button>
-    </form>
+      <!-- Форма поиска -->
+      <form method="get" action="{% url 'index' %}" class="flex items-center gap-2">
+        <input type="text"
+              name="search"
+              placeholder="Поиск по заголовку"
+              value="{{ request.GET.search }}"
+              class="p-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <button type="submit"
+                class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-all">
+          Поиск
+        </button>
+      </form>
+    </div>
   
     <h1 class="text-4xl font-bold text-center mb-8 text-gray-900 dark:text-white">Latest Posts</h1>
 
