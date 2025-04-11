@@ -16,11 +16,11 @@
     <div class="space-y-4">
       {% for comment in comments %}
         <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
-          <p>{{ comment.text }}</p>
-          <small class="text-gray-500">— {{ comment.author }}, {{ comment.created_at }}</small>
+          <p class="text-gray-800 dark:text-gray-200">{{ comment.text }}</p>
+          <small class="text-gray-500 dark:text-gray-400">— {{ comment.author }}, {{ comment.created_at }}</small>
         </div>
       {% empty %}
-        <p class="text-gray-400 italic">No comments yet.</p>
+        <p class="text-gray-400 dark:text-gray-500 italic">No comments yet.</p>
       {% endfor %}
     </div>
 
@@ -29,11 +29,12 @@
       {% for field in form %}
         <div>
           <label class="block text-sm font-medium mb-1">{{ field.label }}</label>
-          {{ field }}
+          <input type="{{ field.type }}" name="{{ field.name }}" value="{{ field.value }}"
+                 class="p-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
       {% endfor %}
       <button type="submit"
-              class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition">
+              class="px-4 py-2 rounded-md bg-purple-600 text-white hover:bg-purple-700 transition-all">
         Post Comment
       </button>
     </form>
