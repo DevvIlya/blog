@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth" data-theme="dark">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +10,13 @@
     <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
 
     <!-- Tailwind compiled -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      tailwind.config = {
+        darkMode: 'class', 
+      }
+    </script>
 
     <script defer src="{% static 'js/index.js' %}"></script>
   </head>

@@ -17,20 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const root = document.documentElement;
 
     const currentTheme = localStorage.getItem("theme");
-    if (currentTheme) {
-        root.setAttribute("data-theme", currentTheme);
-        if (currentTheme === "dark") document.body.classList.add("dark");
+    if (currentTheme === "dark") {
+        root.classList.add("dark");
+    } else if (currentTheme === "light") {
+        root.classList.remove("dark");
+    } else {
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (prefersDark) root.classList.add("dark");
     }
 
     themeToggle?.addEventListener("click", () => {
-        const isDark = document.body.classList.toggle("dark");
+        const isDark = root.classList.toggle("dark");
         const theme = isDark ? "dark" : "light";
-        root.setAttribute("data-theme", theme);
         localStorage.setItem("theme", theme);
     });
 
-    loadPosts();
-});
+    loadPosts(); // <--- эта строчка была вне тела функции из-за отсутствия закрывающей скобки
+}); // ← Вот эту скобку ты забыл
 
 function loadPosts() {
     fetch(`/api/posts/?page=${currentPage}&page_size=${pageSize}`)
